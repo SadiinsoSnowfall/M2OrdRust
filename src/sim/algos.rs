@@ -97,7 +97,7 @@ impl Scheduler for FCFSEasy {
 
 			for (idx, job) in jobs.iter().skip(1).enumerate() {
 				if job.requested_run_time < time_before_launch && cluster.available_nodes >= job.nodes {
-					return Some(idx);
+					return Some(idx + 1);
 				}
 			}
 

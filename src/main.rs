@@ -1,6 +1,6 @@
 use std::time::SystemTime;
 
-use algos::{Scheduler};
+use algos::Scheduler;
 use sim::{DebugLevel, Engine, algos};
 
 pub mod sim;
@@ -10,13 +10,13 @@ fn main() {
 
 
     let engines: &[Box<dyn Scheduler>] = &[Box::new(algos::FCFS), Box::new(algos::FF), Box::new(algos::SJF), Box::new(algos::FCFSEasy)];
-    let node_counts = &[64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072];
+    let node_counts: &[u32] = &[64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072];
     
     let start_time = SystemTime::now();
 
-    for _ in node_counts {
-        for _ in engines {
-            let mut engine = match Engine::new(Box::new(algos::FCFS), 1024, None, data_file, DebugLevel::None) {
+    for &node_count in node_counts {
+        for engine in engines.iter() {
+            let mut engine = match Engine::new(&engine, node_count, None, data_file, DebugLevel::None) {
                 Ok(engine) => engine,
                 Err(why) => panic!("Error during engine initialization: {}", why)
             };

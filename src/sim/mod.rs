@@ -43,9 +43,9 @@ impl Ord for Event {
     }
 }
 
-pub struct Engine {
+pub struct Engine<'a> {
 	debug: DebugLevel,
-	scheduler: Box<dyn Scheduler>,
+	scheduler: &'a Box<dyn Scheduler>,
 	cluster: Cluster,
 	events: MinMaxHeap<(Clock, Event)>,
 	clock: Clock,
@@ -97,8 +97,8 @@ pub struct EngineReport {
 	time_took: u128,
 }
 
-impl Engine {
-	pub fn new(scheduler: Box<dyn Scheduler>, available_nodes: u32, task_limit: Option<usize>, input_file: &str, debug: DebugLevel) -> Result<Self, EngineError> {
+impl<'a> Engine<'a> {
+	pub fn new(scheduler: &'a Box<dyn Scheduler>, available_nodes: u32, task_limit: Option<usize>, input_file: &str, debug: DebugLevel) -> Result<Self, EngineError> {
 		if debug >= DebugLevel::Verbose {
 			println!("Created a new Engine with scheduler {}", scheduler.name());
 			println!("Created a new Cluster with {} nodes", available_nodes);
