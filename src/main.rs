@@ -16,7 +16,7 @@ fn main() {
 
     for &node_count in node_counts {
         for engine in engines.iter() {
-            let mut engine = match Engine::new(&engine, node_count, None, data_file, DebugLevel::None) {
+            let mut engine = match Engine::new(&engine, node_count, None, data_file, DebugLevel::Info) {
                 Ok(engine) => engine,
                 Err(why) => panic!("Error during engine initialization: {}", why)
             };

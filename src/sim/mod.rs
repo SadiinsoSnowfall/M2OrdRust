@@ -208,7 +208,7 @@ impl<'a> Engine<'a> {
 
 			match event {
 			    Event::NewJob(job) => {
-					if self.debug >= DebugLevel::Info {
+					if self.debug >= DebugLevel::Verbose {
 						println!("\
 							DEBUG: time moved to timestamp {}. \
 							Job {} was submitted now. \
@@ -221,7 +221,7 @@ impl<'a> Engine<'a> {
 			    Event::JobFinished(id) => {
 					self.cluster.finish_job(id);
 
-					if self.debug >= DebugLevel::Info {
+					if self.debug >= DebugLevel::Verbose {
 						println!("\
 							DEBUG: time moved to timestamp {}. \
 							Job {} finished now. \
